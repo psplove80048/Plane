@@ -66,9 +66,11 @@ public class Plane extends JFrame {
 		for (int i = 0; i < 60; i++) {
 			p.p[i] = new Point(0, 700);
 		}
-
-		p.repaint();
-		while (p.play == 0) {
+		p.ready();
+	}	
+	public void ready() {
+		repaint();
+		while (play == 0) {
 			try {
 
 				Thread.sleep(120);
@@ -76,7 +78,7 @@ public class Plane extends JFrame {
 			} catch (InterruptedException e) {
 			}
 		}
-		p.run();
+		run();
 	}
 
 	public void gameover() {
@@ -93,7 +95,7 @@ public class Plane extends JFrame {
 		}
 		where = 330;
 		speed = 0;
-		timer = 0;
+		timer = 0; 
 		arrow = 0;
 		go = 0;
 		attact = 20;
