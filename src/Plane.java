@@ -20,29 +20,35 @@ public class Plane extends JFrame {
 
 	public static void main(String[] args) {
 		Plane p = new Plane();
-		p.setResizable(false);
-		p.setSize(640, 640);
-		p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		p.getContentPane().add(p.pm);
-		p.setVisible(true);
-		p.setLocationRelativeTo(null);
-		p.setFocusable(true);
-		p.repaint();
-		p.addKeyListener(new KeyListener() {
+		p.set();
+		p.gameset();
+		p.ready();
+	}
+
+	public void set() {
+		setResizable(false);
+		setSize(640, 640);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().add(pm);
+		setVisible(true);
+		setLocationRelativeTo(null);
+		setFocusable(true);
+		repaint();
+		addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) {
-				p.requestFocus();
+				requestFocus();
 				int key = e.getKeyCode();
 				if (key == KeyEvent.VK_LEFT)
-					p.go = -1;
+					go = -1;
 				if (key == KeyEvent.VK_RIGHT)
-					p.go = 1;
+					go = 1;
 				if (key == KeyEvent.VK_SPACE)
-					p.play = 1;
+					play = 1;
 
 			}
 
 			public void keyReleased(KeyEvent k) {
-				p.go = 0;
+				go = 0;
 			}
 
 			public void keyTyped(KeyEvent k) {
@@ -50,24 +56,27 @@ public class Plane extends JFrame {
 
 		});
 		try {
-			p.icon = ImageIO.read(new File("icon.png"));
-			p.dart = ImageIO.read(new File("1.png"));
-			p.back = ImageIO.read(new File("back.jpg"));
+			icon = ImageIO.read(new File("icon.png"));
+			dart = ImageIO.read(new File("1.png"));
+			back = ImageIO.read(new File("back.jpg"));
 		} catch (Exception ex) {
 			System.out.println("No example.jpg!!");
 		}
 
-		p.where = 330;
-		p.speed = 0;
-		p.timer = 0;
-		p.arrow = 0;
-		p.go = 0;
-		p.attact = 20;
+	}
+
+	public void gameset() {
+		where = 330;
+		speed = 0;
+		timer = 0;
+		arrow = 0;
+		go = 0;
+		attact = 20;
 		for (int i = 0; i < 60; i++) {
-			p.p[i] = new Point(0, 700);
+			p[i] = new Point(0, 700);
 		}
-		p.ready();
-	}	
+	}
+	
 	public void ready() {
 		repaint();
 		while (play == 0) {
@@ -95,7 +104,7 @@ public class Plane extends JFrame {
 		}
 		where = 330;
 		speed = 0;
-		timer = 0; 
+		timer = 0;
 		arrow = 0;
 		go = 0;
 		attact = 20;
