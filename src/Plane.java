@@ -5,6 +5,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Plane extends JFrame {
+	//parameter
 	Image icon, dart, back;
 	JPanel pm = new JPanel(null);
 	int where;
@@ -18,6 +19,7 @@ public class Plane extends JFrame {
 	int high = 0;
 	float t;
 
+	//main
 	public static void main(String[] args) {
 		Plane p = new Plane();
 		p.set();
@@ -25,6 +27,9 @@ public class Plane extends JFrame {
 		p.ready();
 	}
 
+	
+	
+	//viewset
 	public void set() {
 		setResizable(false);
 		setSize(640, 640);
@@ -65,6 +70,8 @@ public class Plane extends JFrame {
 
 	}
 
+	
+	//planeset
 	public void gameset() {
 		where = 330;
 		speed = 0;
@@ -77,6 +84,9 @@ public class Plane extends JFrame {
 		}
 	}
 	
+	
+	
+	//status
 	public void ready() {
 		repaint();
 		while (play == 0) {
@@ -113,7 +123,35 @@ public class Plane extends JFrame {
 		}
 		run();
 	}
+	
+	public void run() {
+		while (play == 1) {
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+			}
+			timer++;
+			if (timer % attact == 0) {
+				t = (float) timer / 1000;
+				if (t > 2)
+					t = 2;
+				for (int i = 0; i < Math.random() * (1 + t); i++) {
+					p[arrow].setLocation(Math.random() * 610, 0);
+					arrow++;
+					if (arrow == 59)
+						arrow = 0;
+				}
+			}
+			if (timer % 100 == 0 && attact > 4)
+				attact--;
+			repaint();
+			setTitle("存活時間:" + timer / 20 + "秒");
+		}
+		gameover();
+	}
 
+	
+	//paint
 	public void paint(Graphics g) {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
 		Graphics2D g2 = (Graphics2D) g;
@@ -156,32 +194,6 @@ public class Plane extends JFrame {
 			g2.drawString("按空白鍵開始", 175, 400);
 		}
 
-	}
-
-	public void run() {
-		while (play == 1) {
-			try {
-				Thread.sleep(50);
-			} catch (InterruptedException e) {
-			}
-			timer++;
-			if (timer % attact == 0) {
-				t = (float) timer / 1000;
-				if (t > 2)
-					t = 2;
-				for (int i = 0; i < Math.random() * (1 + t); i++) {
-					p[arrow].setLocation(Math.random() * 610, 0);
-					arrow++;
-					if (arrow == 59)
-						arrow = 0;
-				}
-			}
-			if (timer % 100 == 0 && attact > 4)
-				attact--;
-			repaint();
-			setTitle("存活時間:" + timer / 20 + "秒");
-		}
-		gameover();
 	}
 
 }
